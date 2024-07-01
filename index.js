@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended: true}));
 //CARGAR LAS RUTAS
 const AccesorioRutes = require("./routes/accesorios")
 
-app.use("/api/accesorio", AccesorioRutes)
+app.use("/accesorio", AccesorioRutes)
 
  
 //RUTA PRUEBA
