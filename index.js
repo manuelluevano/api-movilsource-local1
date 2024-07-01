@@ -22,9 +22,11 @@ app.use(express.json({
 app.use(express.urlencoded({extended: true}));
 
 //CARGAR LAS RUTAS
+const UserRutes = require("./routes/user")
 const AccesorioRutes = require("./routes/accesorios")
 
 app.use("/accesorio", AccesorioRutes)
+app.use("/user", UserRutes)
 
  
 //RUTA PRUEBA
