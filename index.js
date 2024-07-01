@@ -24,10 +24,13 @@ app.use(express.urlencoded({extended: true}));
 //CARGAR LAS RUTAS
 const UserRutes = require("./routes/user")
 const AccesorioRutes = require("./routes/accesorios")
+const ServiceRutes = require("./routes/service")
+const PedidoAccesorioRutes =  require("./routes/pedidoAccesorios")
 
 app.use("/accesorio", AccesorioRutes)
 app.use("/user", UserRutes)
-
+app.use("/service", ServiceRutes)
+app.use("/pedido", PedidoAccesorioRutes)
  
 //RUTA PRUEBA
 app.get("/ruta-prueba", (req, res)=> {
