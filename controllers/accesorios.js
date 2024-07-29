@@ -28,6 +28,7 @@ const addAccesorio = async (req, res) => {
     nombre: params.nombre,
     precio: params.precio,
     stock: params.stock,
+    categoria: params.stock,
     imagen: linkImg,
   });
 
