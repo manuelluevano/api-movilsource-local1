@@ -14,7 +14,7 @@ const AccesorioSchema = Schema({
     required: true,
   },
   categoria: {
-    type: Number,
+    type: String,
   },
   imagen: {
     type: String,
