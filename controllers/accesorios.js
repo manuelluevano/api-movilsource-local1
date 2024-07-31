@@ -6,7 +6,7 @@ const addAccesorio = async (req, res) => {
   //RECOGER PARAMETROS
   let params = req.body;
 
-  let obj = params.imagen;
+  // let obj = params.imagen;
   // DESTRUCTURING
   // let img = obj.imagen;
 
@@ -24,7 +24,7 @@ const addAccesorio = async (req, res) => {
     });
   }
 
-  const linkImg = await uploadImage(params.imagen);
+  // const linkImg = await uploadImage(params.imagen);
 
   //CREAR OBJETO
   const newAccesorio = new Accesorios({
