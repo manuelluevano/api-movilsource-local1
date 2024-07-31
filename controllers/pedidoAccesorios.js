@@ -8,7 +8,7 @@ const nuevoPedido = async (req, res) => {
 
   try {
     await pedido.save();
-    res.json({ mensaje: "Reporte Generadop Correctamente" });
+    res.json({ mensaje: "Reporte Generado Correctamente" });
   } catch (error) {
     return res.status(400).json({
       //devolver error
