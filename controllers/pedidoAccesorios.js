@@ -8,7 +8,7 @@ const nuevoPedido = async (req, res) => {
 
   try {
     await pedido.save();
-    res.json({ mensaje: "Se agrego un nuevo pedido" });
+    res.json({ mensaje: "Reporte Generadop Correctamente" });
   } catch (error) {
     return res.status(400).json({
       //devolver error
