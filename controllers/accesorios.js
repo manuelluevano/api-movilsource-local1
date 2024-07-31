@@ -13,7 +13,7 @@ const addAccesorio = async (req, res) => {
   console.log(params);
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (!params.nombre || !params.precio || !params.stock || !params.imagen) {
+  if (!params.nombre || !params.precio || !params.stock ) {
     return res.status(400).json({
       //devolver error
       status: "Error",
