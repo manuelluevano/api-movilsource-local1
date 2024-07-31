@@ -5,7 +5,7 @@ const accesorioController = require("../controllers/accesorios");
 //importar middleware
 const check = require("../middlewares/auth");
 
-router.post("/accesorio",check.auth, accesorioController.addAccesorio);
+router.post("/accesorio", accesorioController.addAccesorio);
 router.get("/accesorios", check.auth, accesorioController.listAccesorio);
 router.get("/accesorio/:id", accesorioController.detail);
 
