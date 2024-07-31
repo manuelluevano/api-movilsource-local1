@@ -13,7 +13,10 @@ const addAccesorio = async (req, res) => {
   console.log(params);
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (!params.nombre || !params.precio || !params.stock ) {
+  if (!params.nombre 
+    // || !params.precio 
+    // || !params.stock
+   ) {
     return res.status(400).json({
       //devolver error
       status: "Error",
@@ -26,10 +29,10 @@ const addAccesorio = async (req, res) => {
   //CREAR OBJETO
   const newAccesorio = new Accesorios({
     nombre: params.nombre,
-    precio: params.precio,
-    stock: params.stock,
-    categoria: params.categoria,
-    imagen: linkImg,
+    // precio: params.precio,
+    // stock: params.stock,
+    // categoria: params.categoria,
+    // imagen: linkImg,
   });
 
   //  Guardar el articulo en la base de datos
