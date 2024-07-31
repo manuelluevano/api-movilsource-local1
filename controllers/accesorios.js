@@ -28,7 +28,7 @@ const addAccesorio = async (req, res) => {
 
   //CREAR OBJETO
   const newAccesorio = new Accesorios({
-    nombre: params.nombre,
+    nombre: params.nombre
     // precio: params.precio,
     // stock: params.stock,
     // categoria: params.categoria,

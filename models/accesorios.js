@@ -4,7 +4,7 @@ const AccesorioSchema = Schema({
   nombre: {
     type: String,
     required: true,
-  },
+  }
   // precio: {
   //   type: Number,
   //   required: true,
