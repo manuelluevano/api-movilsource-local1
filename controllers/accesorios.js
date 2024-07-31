@@ -6,7 +6,7 @@ const addAccesorio = async (req, res) => {
   //RECOGER PARAMETROS
   let params = req.body;
 
-  // let obj = params.imagen;
+  let obj = params.imagen;
   // DESTRUCTURING
   // let img = obj.imagen;
 
@@ -14,8 +14,9 @@ const addAccesorio = async (req, res) => {
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
   if (!params.nombre 
-    // || !params.precio 
-    // || !params.stock
+    || !params.precio 
+    || !params.stock
+    || !params.categoria
    ) {
     return res.status(400).json({
       //devolver error
@@ -24,15 +25,15 @@ const addAccesorio = async (req, res) => {
     });
   }
 
-  // const linkImg = await uploadImage(params.imagen);
+  const linkImg = await uploadImage(params.imagen);
 
   //CREAR OBJETO
   const newAccesorio = new Accesorios({
-    nombre: params.nombre
-    // precio: params.precio,
-    // stock: params.stock,
-    // categoria: params.categoria,
-    // imagen: linkImg,
+    nombre: params.nombre,
+    precio: params.precio,
+    stock: params.stock,
+    categoria: params.categoria,
+    imagen: linkImg,
   });
 
   //  Guardar el articulo en la base de datos
