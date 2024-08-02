@@ -31,7 +31,6 @@ const addService = async (req, res) => {
     !params.modelo ||
     !params.marca ||
     !params.precio || 
-    !params.folio  ||
     !params.firma
 
   ) {
