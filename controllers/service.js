@@ -17,7 +17,7 @@ const pruebaService = (req, res) => {
 };
 
 const addService = async (req, res) => {
-  let folio = 1
+  let folio
   //RECOGER PARAMETROS
   let params = req.body;
   console.log(req.body);
