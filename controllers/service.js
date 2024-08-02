@@ -17,9 +17,9 @@ const pruebaService = (req, res) => {
 };
 
 const addService = async (req, res) => {
+  let folio = 1
   //RECOGER PARAMETROS
   let params = req.body;
-
   console.log(req.body);
 
   //REVISAR SI INGRESAMOS LOS PARAMETROS
@@ -45,7 +45,8 @@ const addService = async (req, res) => {
   service_to_save.user = req.user.id;
 
   //INCREMENTAR FOLIO
-  service_to_save.folio + 1
+  folio ++ 
+  service_to_save.folio = folio 
 
   // Guardar el articulo en la base de datos
   service_to_save
