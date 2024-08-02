@@ -45,7 +45,7 @@ const addService = async (req, res) => {
   service_to_save.user = req.user.id;
 
   //INCREMENTAR FOLIO
-  service_to_save.folio = service_to_save.folio++
+  service_to_save.folio = service_to_save.folio + 1
 
   // Guardar el articulo en la base de datos
   service_to_save
