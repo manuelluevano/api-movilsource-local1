@@ -42,6 +42,9 @@ const ServiceSchema = Schema({
   folio: {
     type: Number,
   },
+  gaveta: {
+    type: String,
+  },
   observaciones: {
     type: String,
   },
@@ -54,9 +57,6 @@ const ServiceSchema = Schema({
     default: false,
   },
   imagenEquipo: {
-    type: String,
-  },
-  firmaDigital: {
     type: String,
   },
   user: {
