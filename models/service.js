@@ -41,6 +41,7 @@ const ServiceSchema = Schema({
   },
   folio: {
     type: Number,
+    default: "0",
   },
   observaciones: {
     type: String,

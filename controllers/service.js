@@ -44,6 +44,9 @@ const addService = async (req, res) => {
   let service_to_save = new Service(params);
   service_to_save.user = req.user.id;
 
+  //INCREMENTAR FOLIO
+  service_to_save.folio = service_to_save++
+
   // Guardar el articulo en la base de datos
   service_to_save
     .save()
