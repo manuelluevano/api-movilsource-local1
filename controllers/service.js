@@ -2,7 +2,7 @@
 // const Service = require("../models/service");
 // const bcrypt = require("bcrypt");
 
-const Service = require("../models/service");
+const Servicios = require("../models/service");
 // const { infoUserId } = require("../services/userService");
 
 //IMPORTAR services
@@ -41,7 +41,7 @@ const addService = async (req, res) => {
   }
 
   //CREAR OBJETO DE USUARIO
-  let service_to_save = new Service(params);
+  let service_to_save = new Servicios(params);
   service_to_save.user = req.user.id;
 
 
@@ -69,7 +69,7 @@ const listServices = async (req, res) => {
   //Consulta a DB
   try {
     // obtener todos los articulos
-    let services = await Service.find({})
+    let services = await Servicios.find({})
       .sort({
         fecha: 1,
       })
@@ -83,13 +83,13 @@ const listServices = async (req, res) => {
     }
 
     //OBTENER SERVICIOS REALIZADO Y NO REALIZADOS
-    let servicesPendient = await Service.find({ status: false })
+    let servicesPendient = await Servicios.find({ status: false })
       .sort({
         fecha: 1,
       })
       .populate("user");
 
-    let servicesFinished = await Service.find({ status: true })
+    let servicesFinished = await Servicios.find({ status: true })
       .sort({
         fecha: 1,
       })
@@ -118,7 +118,7 @@ const updateStatus = async (req, res) => {
 
   try {
     //BUSCAR SERVICIO EN DB
-    let serviceToDB = await Service.findById(id);
+    let serviceToDB = await Servicios.findById(id);
 
     //VERIFICAR QUE EL ESTADO SEA FALSE
     const verificarStado = serviceToDB.status;
@@ -136,7 +136,7 @@ const updateStatus = async (req, res) => {
     let status = true;
     serviceToDB.status = status;
 
-    let serviceUpdateStatus = await Service.findByIdAndUpdate(
+    let serviceUpdateStatus = await Servicios.findByIdAndUpdate(
       {
         _id: id,
       },
@@ -171,7 +171,7 @@ const updateComplete = async (req, res) => {
 
   try {
     //BUSCAR SERVICIO EN DB
-    let serviceToDB = await Service.findById(id);
+    let serviceToDB = await Servicios.findById(id);
 
     //VERIFICAR QUE EL ESTADO SEA FALSE
     const verificarStado = serviceToDB.complete;
@@ -189,7 +189,7 @@ const updateComplete = async (req, res) => {
     let complete = true;
     serviceToDB.complete = complete;
 
-    let serviceUpdateStatus = await Service.findByIdAndUpdate(
+    let serviceUpdateStatus = await Servicios.findByIdAndUpdate(
       {
         _id: id,
       },
@@ -225,7 +225,7 @@ const buscador = async (req, res) => {
     let busqueda = req.params.busqueda;
 
     //Find OR // OR = SELECT * FROM
-    services = await Service.find({
+    services = await Servicios.find({
       $or: [
         { name: { $regex: busqueda, $options: "i" } },
         { telefono: { $regex: busqueda, $options: "i" } },
@@ -279,7 +279,7 @@ const editar = async (req, res) => {
   // }
   //BUSCAR Y ACTUALIZAR ARTICULO
   try {
-    let articulo = await Service.findOneAndUpdate({ _id: id }, req.body, {
+    let articulo = await Servicios.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
     });
 
