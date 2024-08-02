@@ -30,8 +30,7 @@ const addService = async (req, res) => {
     !params.servicio ||
     !params.modelo ||
     !params.marca ||
-    !params.precio || 
-    !params.firma
+    !params.precio 
 
   ) {
     return res.status(400).json({
