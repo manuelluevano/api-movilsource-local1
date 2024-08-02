@@ -25,11 +25,15 @@ const addService = async (req, res) => {
   //REVISAR SI INGRESAMOS LOS PARAMETROS
   if (
     !params.name ||
+    !params.apellido ||
     !params.telefono ||
     !params.servicio ||
     !params.modelo ||
     !params.marca ||
-    !params.precio 
+    !params.precio || 
+    !params.folio  ||
+    !params.firma
+
   ) {
     return res.status(400).json({
       //devolver error

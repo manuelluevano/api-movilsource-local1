@@ -5,6 +5,10 @@ const ServiceSchema = Schema({
     type: String,
     required: true,
   },
+  apellido: {
+    type: String,
+    required: true,
+  },
   telefono: {
     type: String,
     required: true,
@@ -37,7 +41,6 @@ const ServiceSchema = Schema({
   },
   folio: {
     type: Number,
-    default: "0000",
   },
   observaciones: {
     type: String,
@@ -49,6 +52,12 @@ const ServiceSchema = Schema({
   complete: {
     type: Boolean,
     default: false,
+  },
+  imagenEquipo: {
+    type: String,
+  },
+  firmaDigital: {
+    type: String,
   },
   user: {
     type: Schema.ObjectId,
