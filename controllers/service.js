@@ -180,7 +180,7 @@ const updateComplete = async (req, res) => {
     if (verificarStado) {
       return res.status(200).send({
         status: "Success",
-        message: "El EQUIPO YA SE TERMINO!",
+        message: "REPARACION TERMINADA!",
         service: serviceToDB.complete,
       });
     }
