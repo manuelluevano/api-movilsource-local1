@@ -127,7 +127,7 @@ const updateStatus = async (req, res) => {
     if (verificarStado) {
       return res.status(200).send({
         status: "Success",
-        message: "El Servicio ya se entrego",
+        message: "Servicio Entregado a Cliente 🛠️",
         service: serviceToDB.status,
       });
     }
@@ -206,7 +206,7 @@ const updateComplete = async (req, res) => {
     //MOSTRAR EL SERVICIO
     return res.status(200).json({
       status: "Success",
-      message: "Servicio Terminado :)",
+      message: "Reparacion Realizada con exito 👌",
       service: serviceUpdateStatus,
     });
   } catch (error) {
