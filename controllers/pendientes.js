@@ -1,6 +1,6 @@
 //IMPORTAR DEPENDENCIAS Y MODULOS
 
-// const pendientes = require("../models/Pendientes");
+const pendientes = require("../models/Pendientes");
 
 const addPendiente = async (req, res) => {
   //RECOGER PARAMETROS
