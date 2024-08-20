@@ -9,16 +9,16 @@ const addPendiente = async (req, res) => {
 
   console.log(params);
 
-  // // REVISAR SI INGRESAMOS LOS PARAMETROS
-  // if (!params.pendiente 
-  //   || !params.detalle
-  //  ) {
-  //   return res.status(400).json({
-  //     //devolver error
-  //     status: "Error",
-  //     mensaje: "Faltan datos por enviar",
-  //   });
-  // }
+  // REVISAR SI INGRESAMOS LOS PARAMETROS
+  if (!params.pendiente 
+    || !params.detalle
+   ) {
+    return res.status(400).json({
+      //devolver error
+      status: "Error",
+      mensaje: "Faltan datos por enviar",
+    });
+  }
 
   // //CREAR OBJETO
   // const newPendiente = new pendientes(params);
