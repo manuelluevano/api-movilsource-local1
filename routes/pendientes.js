@@ -6,7 +6,7 @@ const pendientesController = require("../controllers/pendientes");
 // const check = require("../middlewares/auth");
 
 router.post("/pendiente",  pendientesController.addPendiente);
-router.get("/pendentes",  pendientesController.listPendientes);
+router.get("/pendientes",  pendientesController.listPendientes);
 
 //Exportar router
 module.exports = router;

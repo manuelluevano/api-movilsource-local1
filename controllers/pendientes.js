@@ -51,30 +51,30 @@ const listPendientes = async (req, res) => {
 
    console.log(params);
 
-  //Consulta a DB
-  // try {
-  //   // obtener todos los pendientes
-  //   let Pendientes = await pendientes.find({});
+  // Consulta a DB
+  try {
+    // obtener todos los pendientes
+    let Pendientes = await pendientes.find({});
 
-  //   if (!Pendientes.length > 0) {
-  //     return res.status(404).json({
-  //       status: "error",
-  //       mensaje: "No se han encontrado pendientes",
-  //     });
-  //   }
+    if (!Pendientes.length > 0) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "No se han encontrado pendientes",
+      });
+    }
 
-  //   return res.status(200).send({
-  //     status: "Success",
-  //     // parametro: req.params.ultimos,
-  //     contador: Pendientes.length,
-  //     Pendientes,
-  //   });
-  // } catch (error) {
-  //   return res.status(400).json({
-  //     status: "Error",
-  //     mensaje: "Error datos",
-  //   });
-  // }
+    return res.status(200).send({
+      status: "Success",
+      // parametro: req.params.ultimos,
+      contador: Pendientes.length,
+      Pendientes,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "Error",
+      mensaje: "Error datos",
+    });
+  }
 };
 
 
