@@ -45,16 +45,11 @@ const addPendiente = async (req, res) => {
 
 const listPendientes = async (req, res) => {
 
-   //RECOGER PARAMETROS
-   let params = req.body;
-
-
-   console.log(params);
 
   // Consulta a DB
   try {
     // obtener todos los pendientes
-    let Pendientes = await Pendientes.find({});
+    let listPendientes = await Pendientes.find({});
 
     if (!Pendientes.length > 0) {
       return res.status(404).json({
@@ -66,8 +61,8 @@ const listPendientes = async (req, res) => {
     return res.status(200).send({
       status: "Success",
       // parametro: req.params.ultimos,
-      contador: Pendientes.length,
-      Pendientes,
+      contador: listPendientes.length,
+      listPendientes,
     });
   } catch (error) {
     return res.status(400).json({
