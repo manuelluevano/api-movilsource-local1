@@ -26,11 +26,13 @@ const UserRutes = require("./routes/user")
 const AccesorioRutes = require("./routes/accesorios")
 const ServiceRutes = require("./routes/service")
 const PedidoAccesorioRutes =  require("./routes/pedidoAccesorios")
+const PendienteRutes = require("./routes/pendientes")
 
 app.use("/accesorio", AccesorioRutes)
 app.use("/user", UserRutes)
 app.use("/service", ServiceRutes)
 app.use("/pedido", PedidoAccesorioRutes)
+app.use("/pendiente", PendienteRutes)
  
 //RUTA PRUEBA
 app.get("/ruta-prueba", (req, res)=> {
