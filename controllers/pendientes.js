@@ -1,6 +1,6 @@
 //IMPORTAR DEPENDENCIAS Y MODULOS
 
-const pendientes = require("../models/Pendientes");
+const Pendientes = require("../models/pendientes");
 
 const addPendiente = async (req, res) => {
   //RECOGER PARAMETROS
@@ -21,7 +21,7 @@ const addPendiente = async (req, res) => {
   }
 
   //CREAR OBJETO
-  const newPendiente = new pendientes(params);
+  const newPendiente = new Pendientes(params);
 
   //  Guardar el articulo en la base de datos
   newPendiente
@@ -54,7 +54,7 @@ const listPendientes = async (req, res) => {
   // Consulta a DB
   try {
     // obtener todos los pendientes
-    let Pendientes = await pendientes.find({});
+    let Pendientes = await Pendientes.find({});
 
     if (!Pendientes.length > 0) {
       return res.status(404).json({
