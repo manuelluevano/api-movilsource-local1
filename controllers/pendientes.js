@@ -20,27 +20,27 @@ const addPendiente = async (req, res) => {
     });
   }
 
-  // //CREAR OBJETO
-  // const newPendiente = new pendientes(params);
+  //CREAR OBJETO
+  const newPendiente = new pendientes(params);
 
-  // //  Guardar el articulo en la base de datos
-  // newPendiente
-  //   .save()
-  //   .then((pendienteGuardado) => {
-  //     return res.status(200).json({
-  //       //DEVOLVER DATOS EL ACCESORIO
-  //       status: "success",
-  //       mensaje: "Pendiente registrado",
-  //       pendiente: pendienteGuardado,
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     return res.status(400).json({
-  //       //devolver error
-  //       status: "error",
-  //       mensaje: "No se ha guardado el accesorio: " + error.message,
-  //     });
-  //   });
+  //  Guardar el articulo en la base de datos
+  newPendiente
+    .save()
+    .then((pendienteGuardado) => {
+      return res.status(200).json({
+        //DEVOLVER DATOS EL ACCESORIO
+        status: "success",
+        mensaje: "Pendiente registrado",
+        pendiente: pendienteGuardado,
+      });
+    })
+    .catch((error) => {
+      return res.status(400).json({
+        //devolver error
+        status: "error",
+        mensaje: "No se ha guardado el accesorio: " + error.message,
+      });
+    });
 };
 
 const listPendientes = async (req, res) => {
