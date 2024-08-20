@@ -3,10 +3,10 @@ const router = express.Router();
 const pendientesController = require("../controllers/pendientes");
 
 //importar middleware
-const check = require("../middlewares/auth");
+// const check = require("../middlewares/auth");
 
-router.post("/pendiente", check.auth, pendientesController.addPendiente);
-router.get("/pendentes", check.auth, pendientesController.listPendientes);
+router.post("/pendiente",  pendientesController.addPendiente);
+router.get("/pendentes",  pendientesController.listPendientes);
 
 //Exportar router
 module.exports = router;

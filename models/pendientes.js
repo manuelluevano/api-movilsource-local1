@@ -17,7 +17,7 @@ const PendientesSchema = Schema({
     type: Date,
   },
   status:{
-    type: Boolean
+    type: Boolean,
   }
 });
 
