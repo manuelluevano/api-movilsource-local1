@@ -69,9 +69,9 @@ const listPendientes = async (req, res) => {
 
 const updateComplete = async (req, res) => {
   //RECOGER PARAMETROS
-  let params = req.body;
+  const id = req.params.id;
 
-  console.log(params);
+  console.log(id);
   
   
   // try {
