@@ -6,13 +6,10 @@ const addPendiente = async (req, res) => {
   //RECOGER PARAMETROS
   let params = req.body;
 
-
   console.log(params);
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (!params.pendiente 
-    || !params.detalle
-   ) {
+  if (!params.pendiente || !params.detalle) {
     return res.status(400).json({
       //devolver error
       status: "Error",
@@ -44,8 +41,6 @@ const addPendiente = async (req, res) => {
 };
 
 const listPendientes = async (req, res) => {
-
-
   // Consulta a DB
   try {
     // obtener todos los pendientes
@@ -73,7 +68,6 @@ const listPendientes = async (req, res) => {
 };
 
 const updateComplete = async (req, res) => {
-
   try {
     //BUSCAR SERVICIO EN DB
     let pendienteUpdate = await Pendientes.findById(id);
@@ -95,38 +89,38 @@ const updateComplete = async (req, res) => {
     pendienteUpdate.status = status;
 
     console.log("Cmabiar", pendienteUpdate.status);
-    
-  //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
-  //     {
-  //       _id: id,
-  //     },
-  //     pendienteUpdate,
-  //     { new: true }
-  //   );
 
-  //   if (!serviceUpdateStatus) {
-  //     return res.status(500).json({
-  //       status: "Error",
-  //       mensaje: "Error al actualziar",
-  //     });
-  //   }
-  //   //MOSTRAR EL SERVICIO
-  //   return res.status(200).json({
-  //     status: "Success",
-  //     message: "SERVICIO ENTREGADO :)",
-  //     service: serviceUpdateStatus,
-  //   });
-  // } catch (error) {
-  //   return res.status(500).json({
-  //     status: "Error",
-  //     mensaje: "Error en la consulta",
-  //     error,
-  //   });
-  // }
+    //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
+    //     {
+    //       _id: id,
+    //     },
+    //     pendienteUpdate,
+    //     { new: true }
+    //   );
+
+    //   if (!serviceUpdateStatus) {
+    //     return res.status(500).json({
+    //       status: "Error",
+    //       mensaje: "Error al actualziar",
+    //     });
+    //   }
+    //   //MOSTRAR EL SERVICIO
+    //   return res.status(200).json({
+    //     status: "Success",
+    //     message: "SERVICIO ENTREGADO :)",
+    //     service: serviceUpdateStatus,
+    //   });
+  } catch (error) {
+    return res.status(500).json({
+      status: "Error",
+      mensaje: "Error en la consulta",
+      error,
+    });
+  }
 };
 //EXPORTAR ACCIONES
 module.exports = {
   addPendiente,
   listPendientes,
-  updateComplete
+  updateComplete,
 };
