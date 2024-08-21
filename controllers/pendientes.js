@@ -88,7 +88,7 @@ const updateComplete = async (req, res) => {
     let status = true;
     pendienteUpdate.status = status;
 
-    console.log("Cmabiar", pendienteUpdate.status);
+    console.log("Cmabiar", pendienteUpdate);
 
     //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
     //     {
@@ -105,11 +105,11 @@ const updateComplete = async (req, res) => {
     //     });
     //   }
     //   //MOSTRAR EL SERVICIO
-    //   return res.status(200).json({
-    //     status: "Success",
-    //     message: "SERVICIO ENTREGADO :)",
-    //     service: serviceUpdateStatus,
-    //   });
+      return res.status(200).json({
+        status: "Success",
+        message: "SERVICIO ENTREGADO :)",
+        service: pendienteUpdate,
+      });
   } catch (error) {
     return res.status(500).json({
       status: "Error",
