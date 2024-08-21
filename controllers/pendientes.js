@@ -72,7 +72,59 @@ const listPendientes = async (req, res) => {
   }
 };
 
+const updateComplete = async (req, res) => {
+  //RECIBIR EL PARAMETRO DEL ID DEL USUARIO POR URL
+  const id = req.params.id;
+  console.log("ID", id);
 
+  try {
+    //BUSCAR SERVICIO EN DB
+    let serviceToDB = await Pendientes.findById(id);
+
+    //VERIFICAR QUE EL ESTADO SEA FALSE
+    const verificarStado = serviceToDB.complete;
+    // console.log(verificarStado);
+
+    if (verificarStado) {
+      return res.status(200).send({
+        status: "Success",
+        message: "REPARACION TERMINADA!",
+        service: serviceToDB.complete,
+      });
+    }
+
+    //CAMBIAR ESTADO DE SERVICIO
+    let complete = true;
+    serviceToDB.complete = complete;
+
+    let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      serviceToDB,
+      { new: true }
+    );
+
+    if (!serviceUpdateStatus) {
+      return res.status(500).json({
+        status: "Error",
+        mensaje: "Error al actualziar",
+      });
+    }
+    //MOSTRAR EL SERVICIO
+    return res.status(200).json({
+      status: "Success",
+      message: "Pendiente Termiando 👌",
+      service: serviceUpdateStatus,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "Error",
+      mensaje: "Error en la consulta",
+      error,
+    });
+  }
+};
 //EXPORTAR ACCIONES
 module.exports = {
   addPendiente,
