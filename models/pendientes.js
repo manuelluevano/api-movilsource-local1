@@ -11,7 +11,6 @@ const PendientesSchema = Schema({
   },
   telefono: {
     type: Number,
-    required: true,
   },
   dia: {
     type: String,
