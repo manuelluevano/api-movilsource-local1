@@ -68,52 +68,58 @@ const listPendientes = async (req, res) => {
 };
 
 const updateComplete = async (req, res) => {
-  try {
-    //BUSCAR SERVICIO EN DB
-    let pendienteUpdate = await Pendientes.findById(id);
+  //RECOGER PARAMETROS
+  let params = req.body;
+
+  console.log(params);
+  
+  
+  // try {
+  //   //BUSCAR SERVICIO EN DB
+  //   let pendienteUpdate = await Pendientes.findById(id);
 
 
-    if (verificarStado) {
-      return res.status(200).send({
-        status: "Success",
-        message: "Equipo Entregado a Cliente 🛠️",
-        service: pendienteUpdate,
-      });
-    }
+  //   if (verificarStado) {
+  //     return res.status(200).send({
+  //       status: "Success",
+  //       message: "Equipo Entregado a Cliente 🛠️",
+  //       service: pendienteUpdate,
+  //     });
+  //   }
 
-    // //CAMBIAR ESTADO DE SERVICIO
-    // let status = true;
-    // pendienteUpdate.status = status;
+  //   // //CAMBIAR ESTADO DE SERVICIO
+  //   // let status = true;
+  //   // pendienteUpdate.status = status;
 
-    // console.log("Cmabiar", pendienteUpdate);
+  //   // console.log("Cmabiar", pendienteUpdate);
 
-    //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
-    //     {
-    //       _id: id,
-    //     },
-    //     pendienteUpdate,
-    //     { new: true }
-    //   );
+  //   //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
+  //   //     {
+  //   //       _id: id,
+  //   //     },
+  //   //     pendienteUpdate,
+  //   //     { new: true }
+  //   //   );
 
-    //   if (!serviceUpdateStatus) {
-    //     return res.status(500).json({
-    //       status: "Error",
-    //       mensaje: "Error al actualziar",
-    //     });
-    //   }
-    //   //MOSTRAR EL SERVICIO
-      return res.status(200).json({
-        status: "Success",
-        message: "SERVICIO ENTREGADO :)",
-        service: pendienteUpdate,
-      });
-  } catch (error) {
-    return res.status(500).json({
-      status: "Error",
-      mensaje: "Error en la consulta",
-      error,
-    });
-  }
+  //   //   if (!serviceUpdateStatus) {
+  //   //     return res.status(500).json({
+  //   //       status: "Error",
+  //   //       mensaje: "Error al actualziar",
+  //   //     });
+  //   //   }
+  //   //   //MOSTRAR EL SERVICIO
+  //     return res.status(200).json({
+  //       status: "Success",
+  //       message: "SERVICIO ENTREGADO :)",
+  //       service: pendienteUpdate,
+  //     });
+  // } catch (error) {
+  //   return res.status(500).json({
+  //     status: "Error",
+  //     mensaje: "Error en la consulta",
+  //     error,
+  //   });
+  // }
 };
 //EXPORTAR ACCIONES
 module.exports = {
