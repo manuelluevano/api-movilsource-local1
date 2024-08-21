@@ -90,7 +90,7 @@ const updateComplete = async (req, res) => {
     }
 
     //CAMBIAR ESTADO DE SERVICIO
-    serviceToDB.status = complete;
+    serviceToDB.status = true;
 
     let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
       {

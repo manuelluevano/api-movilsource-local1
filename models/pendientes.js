@@ -17,6 +17,7 @@ const PendientesSchema = Schema({
   },
   status:{
     type: Boolean,
+    default: false,
   }
 });
 
