@@ -73,30 +73,32 @@ const listPendientes = async (req, res) => {
 };
 
 const updateComplete = async (req, res) => {
-  //RECIBIR EL PARAMETRO DEL ID DEL USUARIO POR URL
-  const id = req.params.id;
-  console.log("ID", id);
 
   try {
     //BUSCAR SERVICIO EN DB
-    let serviceToDB = await Pendientes.findById(id);
+    let pendienteUpdate = await Pendientes.findById(id);
 
-    if (serviceToDB) {
+    //VERIFICAR QUE EL ESTADO SEA FALSE
+    const verificarStado = pendienteUpdate.status;
+    // console.log(verificarStado);
+
+    if (verificarStado) {
       return res.status(200).send({
         status: "Success",
-        message: "REPARACION TERMINADA!",
-        service: serviceToDB.complete,
+        message: "Equipo Entregado a Cliente 🛠️",
+        service: pendienteUpdate.status,
       });
     }
 
     //CAMBIAR ESTADO DE SERVICIO
-    serviceToDB.status = true;
+    let status = true;
+    pendienteUpdate.status = status;
 
     let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
       {
         _id: id,
       },
-      serviceToDB,
+      pendienteUpdate,
       { new: true }
     );
 
@@ -109,7 +111,7 @@ const updateComplete = async (req, res) => {
     //MOSTRAR EL SERVICIO
     return res.status(200).json({
       status: "Success",
-      message: "Pendiente Termiando 👌",
+      message: "SERVICIO ENTREGADO :)",
       service: serviceUpdateStatus,
     });
   } catch (error) {
