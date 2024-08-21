@@ -7,7 +7,7 @@ const pendientesController = require("../controllers/pendientes");
 
 router.post("/pendiente",  pendientesController.addPendiente);
 router.get("/pendientes",  pendientesController.listPendientes);
-router.post("/pendiente/status/:id" , pendientesController.updateComplete)
+router.post("/status/:id" , pendientesController.updateComplete)
 
 //Exportar router
 module.exports = router;
