@@ -128,5 +128,6 @@ const updateComplete = async (req, res) => {
 //EXPORTAR ACCIONES
 module.exports = {
   addPendiente,
-  listPendientes
+  listPendientes,
+  updateComplete
 };
