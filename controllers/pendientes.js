@@ -81,11 +81,7 @@ const updateComplete = async (req, res) => {
     //BUSCAR SERVICIO EN DB
     let serviceToDB = await Pendientes.findById(id);
 
-    //VERIFICAR QUE EL ESTADO SEA FALSE
-    const verificarStado = serviceToDB.complete;
-    // console.log(verificarStado);
-
-    if (verificarStado) {
+    if (serviceToDB) {
       return res.status(200).send({
         status: "Success",
         message: "REPARACION TERMINADA!",
@@ -94,8 +90,7 @@ const updateComplete = async (req, res) => {
     }
 
     //CAMBIAR ESTADO DE SERVICIO
-    let complete = true;
-    serviceToDB.complete = complete;
+    serviceToDB.status = complete;
 
     let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
       {
