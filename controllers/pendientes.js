@@ -72,23 +72,20 @@ const updateComplete = async (req, res) => {
     //BUSCAR SERVICIO EN DB
     let pendienteUpdate = await Pendientes.findById(id);
 
-    //VERIFICAR QUE EL ESTADO SEA FALSE
-    const verificarStado = pendienteUpdate.status;
-    // console.log(verificarStado);
 
     if (verificarStado) {
       return res.status(200).send({
         status: "Success",
         message: "Equipo Entregado a Cliente 🛠️",
-        service: pendienteUpdate.status,
+        service: pendienteUpdate,
       });
     }
 
-    //CAMBIAR ESTADO DE SERVICIO
-    let status = true;
-    pendienteUpdate.status = status;
+    // //CAMBIAR ESTADO DE SERVICIO
+    // let status = true;
+    // pendienteUpdate.status = status;
 
-    console.log("Cmabiar", pendienteUpdate);
+    // console.log("Cmabiar", pendienteUpdate);
 
     //   let serviceUpdateStatus = await Pendientes.findByIdAndUpdate(
     //     {
