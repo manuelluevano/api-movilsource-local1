@@ -73,19 +73,42 @@ const updateComplete = async (req, res) => {
 
   console.log(id);
   
-  
-  // try {
-  //   //BUSCAR SERVICIO EN DB
-  //   let pendienteUpdate = await Pendientes.findById(id);
+  try {
+       //BUSCAR SERVICIO EN DB
+    let pendienteUpdate = await Pendientes.findById(id);
 
+      
+    
+    //CAMBIAR ESTADO DE SERVICIO
+    let change = true;
+    pendienteUpdate.status = change;
 
-  //   if (verificarStado) {
-  //     return res.status(200).send({
-  //       status: "Success",
-  //       message: "Equipo Entregado a Cliente 🛠️",
-  //       service: pendienteUpdate,
-  //     });
-  //   }
+    let pendienteUpdateStatus = await Pendientes.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      pendienteUpdate,
+      { new: true }
+    );
+
+    if (!pendienteUpdateStatus) {
+      return res.status(500).json({
+        status: "Error",
+        mensaje: "Error al actualziar",
+      });
+    }
+    //MOSTRAR EL SERVICIO
+    return res.status(200).json({
+      status: "Success",
+      message: "Pendiente Realizado 👌",
+      pendiente: pendienteUpdateStatus,
+    });
+  } catch (error) {
+    console.log("error");
+    
+  }
+
+ 
 
   //   // //CAMBIAR ESTADO DE SERVICIO
   //   // let status = true;
