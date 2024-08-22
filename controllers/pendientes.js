@@ -9,7 +9,7 @@ const addPendiente = async (req, res) => {
   console.log(params);
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (!params.pendiente || !params.detalle) {
+  if (!params.pendiente ) {
     return res.status(400).json({
       //devolver error
       status: "Error",

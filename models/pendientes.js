@@ -7,7 +7,6 @@ const PendientesSchema = Schema({
   },
   detalle: {
     type: String,
-    required: true,
   },
   telefono: {
     type: Number,
