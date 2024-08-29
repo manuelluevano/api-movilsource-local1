@@ -66,8 +66,8 @@ const listPendientes = async (req, res) => {
       // parametro: req.params.ultimos,
       contador: listPendientes.length,
       listPendientes,
-      pendientesNoTerminados,
-      pendientesRealizados
+      pendientesNoTerminados :pendientesNoTerminados.length,
+      pendientesRealizados :pendientesRealizados.length
     });
   } catch (error) {
     return res.status(400).json({
