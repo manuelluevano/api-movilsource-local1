@@ -9,7 +9,7 @@ const addPendiente = async (req, res) => {
   console.log(params);
 
   // REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (!params.pendiente ) {
+  if (!params.pendiente) {
     return res.status(400).json({
       //devolver error
       status: "Error",
@@ -53,11 +53,21 @@ const listPendientes = async (req, res) => {
       });
     }
 
+    //OBTENER PENDIENTES REALIZADO Y NO REALIZADOS
+    let pendientesNoTerminados = await Pendientes.find({
+      status: false,
+    });
+
+    let pendientesRealizados = await Pendientes.find({ status: true });
+
+
     return res.status(200).send({
       status: "Success",
       // parametro: req.params.ultimos,
       contador: listPendientes.length,
       listPendientes,
+      pendientesNoTerminados,
+      pendientesRealizados
     });
   } catch (error) {
     return res.status(400).json({
@@ -72,13 +82,11 @@ const updateComplete = async (req, res) => {
   const id = req.params.id;
 
   console.log(id);
-  
+
   try {
-       //BUSCAR SERVICIO EN DB
+    //BUSCAR SERVICIO EN DB
     let pendienteUpdate = await Pendientes.findById(id);
 
-      
-    
     //CAMBIAR ESTADO DE SERVICIO
     let change = true;
     pendienteUpdate.status = change;
@@ -105,10 +113,7 @@ const updateComplete = async (req, res) => {
     });
   } catch (error) {
     console.log("error");
-    
   }
-
- 
 
   //   // //CAMBIAR ESTADO DE SERVICIO
   //   // let status = true;
