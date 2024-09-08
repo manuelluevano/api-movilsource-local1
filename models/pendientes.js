@@ -12,7 +12,7 @@ const PendientesSchema = Schema({
     type: Number,
   },
   dia: {
-    type: String,
+    type: Date,
   },
   status:{
     type: Boolean,
