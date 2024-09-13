@@ -27,13 +27,15 @@ const AccesorioRutes = require("./routes/accesorios")
 const ServiceRutes = require("./routes/service")
 const PedidoAccesorioRutes =  require("./routes/pedidoAccesorios")
 const PendienteRutes = require("./routes/pendientes")
+const EquiposRutes = require("./routes/equipos")
 
 app.use("/accesorio", AccesorioRutes)
 app.use("/user", UserRutes)
 app.use("/service", ServiceRutes)
 app.use("/pedido", PedidoAccesorioRutes)
 app.use("/pendiente", PendienteRutes)
- 
+app.use("/equipos", EquiposRutes)
+
 //RUTA PRUEBA
 app.get("/ruta-prueba", (req, res)=> {
     return res.status(200).json(
