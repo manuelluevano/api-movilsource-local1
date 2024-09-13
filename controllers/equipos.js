@@ -12,7 +12,7 @@ const addEquipo = async (req, res) => {
 
   console.log(params);
 
-  // REVISAR SI INGRESAMOS LOS PARAMETROS
+   // REVISAR SI INGRESAMOS LOS PARAMETROS
   if (!params.nombre 
     || !params.precio 
     || !params.descripcion
@@ -24,15 +24,18 @@ const addEquipo = async (req, res) => {
     });
   }
 
-  const linkImg = await uploadImage(params.imagen);
+  // const linkImg = await uploadImage(params.imagen);
 
   //CREAR OBJETO
   const newEquipo = new Equipos({
     nombre: params.nombre,
     precio: params.precio,
-    descripcion: params.descripcion,
-    imagen: linkImg,
+    descripcion: params.descripcion
+    // imagen: linkImg,
   });
+
+  console.log(newEquipo);
+  
 
   //  Guardar el articulo en la base de datos
   newEquipo
