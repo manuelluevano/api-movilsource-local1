@@ -30,8 +30,8 @@ const addEquipo = async (req, res) => {
   const newEquipo = new Equipos({
     nombre: params.nombre,
     precio: params.precio,
-    descripcion: params.descripcion
-    // imagen: linkImg,
+    descripcion: params.descripcion,
+    imagen: params.imagen,
   });
 
   console.log(newEquipo);
