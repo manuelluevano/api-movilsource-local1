@@ -15,11 +15,13 @@ const app = express();
 app.use(cors());
 
 // Configuración más segura (recomendada para desarrollo)
-app.use(cors({
-    origin: 'http://localhost:5173', // Solo permite tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+// app.use(cors({
+//     origin: 'http://localhost:5173', // Solo permite tu frontend
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+//   }));
+
+
   
 //MIDDLEWARE
 app.use(morgan('dev'));
