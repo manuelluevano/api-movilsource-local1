@@ -1,6 +1,7 @@
 //IMPORTAR DEPENDENCIAS Y MODULOS
 const uploadImage = require("../services/uploadImage");
 const Accesorios = require("../models/accesorios");
+const { Op } = require("sequelize");
 
 const addAccesorio = async (req, res) => {
   //RECOGER PARAMETROS
@@ -57,11 +58,13 @@ const addAccesorio = async (req, res) => {
 };
 
 const listAccesorio = async (req, res) => {
+
   //Consulta a DB
   try {
     // obtener todos los articulos
-    let accesorios = await Accesorios.find({});
-
+    const accesorios = await Accesorios.findAll();
+    console.log(accesorios);
+    
     if (!accesorios.length > 0) {
       return res.status(404).json({
         status: "error",
@@ -83,52 +86,22 @@ const listAccesorio = async (req, res) => {
   }
 };
 
-// const editar = async (req, res) => {
-//   //recoger el id
-//   let id = req.params.id;
 
-//   console.log("Parametro", id);
-//   // //RECOGER DATOS DEL BODY
-//   let parametros = req.body;
 
-//   console.log("Nuevos datos", parametros);
-//   // //VALIDAR DATOS
-//   // if (!id) {
-//   //   return res.status(400).json({
-//   //     //devolver error
-//   //     status: "Error",
-//   //     mensaje: "Faltan datos por enviar",
-//   //   });
-//   // }
-//   //BUSCAR Y ACTUALIZAR ARTICULO
-//   try {
-//     let refaccion = await Refaccion.findOneAndUpdate({ _id: id }, req.body, {
-//       new: true,
-//     });
-
-//     //MOSTRAR EL ARTICULO
-//     return res.status(200).json({
-//       status: "Success",
-//       mensaje: "Servicio Actualizado 👌🏿",
-//       refaccion: refaccion,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(400).json({
-//       status: "Error",
-//       mensaje: "Faltan datos para enviar",
-//     });
-//   }
-// };
 
 const buscador = async (req, res) => {
+  
   try {
     //Sacar el string de busqueda
     let busqueda = req.params.busqueda;
 
     //Find OR // OR = SELECT * FROM
-    let accesorios = await Accesorios.find({
-      $or: [{ nombre: { $regex: busqueda, $options: "i" } }],
+    const accesorios = await Accesorios.findAll({
+      where: {
+        [Op.or]: [
+          { nombre: { [Op.like]: `%${busqueda}%` } }
+        ]
+      }
     });
 
     if (!accesorios.length > 0) {
@@ -153,7 +126,6 @@ const buscador = async (req, res) => {
 };
 
 //SACAR UN ACCESORIO POR ID
-
 const detail = async (req, res) => {
   let id = req.params.id;
 
@@ -261,17 +233,7 @@ const ventaAccesorio = async (req, res) => {
           });
         }
        
-      }
-        // //REDUCIR 1 A STOCK
-    
-        
-      // } catch (error) {
-      //   return res.status(500).json({
-      //     status: "Error",
-      //     mensaje: "Error en la consulta",
-      //     error,
-      //   });
-      // }
+}
     
 
 //EXPORTAR ACCIONES

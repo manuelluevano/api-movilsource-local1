@@ -1,10 +1,13 @@
 //IMPORTAR DEPENDENCIAS Y MODULOS
-const User = require("../models/user");
+
 const bcrypt = require("bcrypt");
+const User = require("../models/user");
 
 //IMPORTAR SERVICIOS
 const jwt = require("../services/jwt");
 const { validarRegistro } = require("../helper/validate");
+const { Op } = require("sequelize");
+// const models = require('../models');
 
 //Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -30,9 +33,11 @@ const login = async (req, res) => {
   }
 
   //BUSCAR USUARIO SI EXISTE EN LA BASE DE DATOS //
-  // con .select ocultamos la password del usuario
-  const userSearch = await User.findOne({ email: params.email.toLowerCase() });
-  // .select({"password": 0})
+  const userSearch = await User.findOne({
+    where: {
+      email: params.email.toLowerCase() // Búsqueda exacta (case-sensitive)
+    }
+  });
 
   if (!userSearch) {
     return res.status(400).json({
@@ -64,7 +69,10 @@ const login = async (req, res) => {
     mensaje: "Te Has Identificado Correctamente",
     userSearch: {
       id: userSearch._id,
-      name: userSearch.name
+      name: userSearch.name,
+      lastname: userSearch.lastname,
+      username: userSearch.username,
+      email: userSearch.email,
     },
     token,
   });
@@ -73,20 +81,27 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   //Recoger  los parametros  por postt a guardar
   let params = req.body;
+  // console.log(params);
 
   //COMPROBAR QUE LLEGUEN BIEN + (VALIDACION)
   try {
     validarRegistro(params);
+    console.log("Valacion correcta");
   } catch (error) {
     return res.status(400).json({
       status: "Error",
-      mensaje: "No se ha validado la información",
+      mensaje: "Llenar todos los campos",
     });
   }
 
-  //CONTROL DE USUARIOS DUPLICADOS
-  let userSearch = await User.find({
-    $or: [{ email: params.email.toLowerCase() }],
+
+  const userSearch = await User.findAll({
+    where: {
+      [Op.or]: [
+        { username: { [Op.like]: params.name.toLowerCase() } },
+        { email: { [Op.like]: params.email.toLowerCase() } }
+      ]
+    }
   });
 
   if (userSearch && userSearch.length >= 1) {

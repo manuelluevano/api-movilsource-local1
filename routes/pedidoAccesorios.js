@@ -6,11 +6,11 @@ const pedidoAccesoriosController = require("../controllers/pedidoAccesorios");
 const check = require("../middlewares/auth");
 
 //AGREGAR PEDIDO
-router.post("/accesorios", pedidoAccesoriosController.nuevoPedido);
-//MOSTRAR PEDDOS
-router.get("/accesorios", pedidoAccesoriosController.mostrarPedidos);
+router.post("/accesorio", pedidoAccesoriosController.nuevoPedido);
+//MOSTRAR PEDIDO X FECHA
+router.get("/accesorios", pedidoAccesoriosController.getVentasPorFecha);
 // MOSTRAR PEDIDO POR ID
-router.get("/accesorios/:id", pedidoAccesoriosController.mostrarPedido);
+// router.get("/accesorios/:id", pedidoAccesoriosController.mostrarPedido);
 
 //Exportar router
 module.exports = router;
