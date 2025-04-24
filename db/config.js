@@ -1,25 +1,17 @@
-//SOLO PARA LOCALHOST
-// require("dotenv").config();
-// require("dotenv").config({ path: "variables.env" });
+require("dotenv").config();
 
 module.exports = {
     app: {
-        // port: process.env.PORT || 3306,
-        port: 3306
+        port: process.env.PORT || 4000,
     },
     jwt: {
-        // secret: process.env.JET_SECRET || 'notasecreta!'
-        secret: 'movilsource'
+        secret: process.env.JET_SECRET || 'notasecreta!'
     },
     mysql: {
-        // host: process.env.MYSQL_HOST || "sql3.freesqldatabase.com",
-        host: "sql3.freesqldatabase.com",
-        // user: process.env.MYSQL_USER || "sql3775146",
-        user:  "sql3775146",
-        // password: process.env.MYSQL_PASSWORD || "MzZps47jrB",
-        password: "MzZps47jrB",
-        // databaase: process.env.MYSQL_DB || "sql3775146",
-        databaase: "sql3775146"
+        host: process.env.MYSQL_HOST || "localhost",
+        user: process.env.MYSQL_USER || "root",
+        password: process.env.MYSQL_PASSWORD || "",
+        databaase: process.env.MYSQL_DB || "ejemplo",
     }
 } 
 
