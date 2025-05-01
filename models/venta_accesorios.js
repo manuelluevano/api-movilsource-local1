@@ -19,13 +19,13 @@ const Venta_accesorios = sequelize.define('venta_accesorios', {
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
   comentarios: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
-  detalles: {
-    type: DataTypes.STRING,
+  comentarios: {
+    type: DataTypes.TEXT,
     allowNull: true, // esto es opcional ya que es el valor por defecto
-  }
+  },
 }, {
   tableName: 'venta_accesorios', // equivalente al tercer parámetro en Mongoose
   timestamps: false // opcional: crea createdAt y updatedAt automáticamente
