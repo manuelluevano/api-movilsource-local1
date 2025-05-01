@@ -32,8 +32,16 @@ const Accesorio = sequelize.define('accesorios', {
     type: DataTypes.STRING,
     allowNull: false, // equivalente a required: true
   },
+  descripcion: {
+    type: DataTypes.TEXT,
+    allowNull: false, // equivalente a required: true
+  },
   precio: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.DECIMAL,
+    allowNull: true, // esto es opcional ya que es el valor por defecto
+  },
+  precio_original: {
+    type: DataTypes.DECIMAL,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
   stock: {
@@ -42,6 +50,10 @@ const Accesorio = sequelize.define('accesorios', {
   },
   categoria: {
     type: DataTypes.STRING,
+    allowNull: true, // esto es opcional ya que es el valor por defecto
+  },
+  activo: {
+    type: DataTypes.BOOLEAN,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
   imagen: {
