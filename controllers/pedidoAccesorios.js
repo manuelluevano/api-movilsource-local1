@@ -3,35 +3,53 @@
 const { Op } = require("sequelize");
 const pedidoAccesorios = require("../models/pedidoAccesorios");
 const Venta_accesorios = require("../models/venta_accesorios");
+// Ejemplo de uso en otro archivo
+const db = require('../db/database');
 
 const nuevoPedido = async (req, res) => {
   let params = req.body;
-
   let newParams = params.venta
 
-
+  // console.log(newParams);
+  
+ 
 //CREAR OBJETO
   let user_to_save = new Venta_accesorios(newParams);
 
- //Guardar el articulo en la base de datos
+    // Actualizar cada producto
+    for (const item of newParams.items) {
+      await db.query(
+        `UPDATE accesorios 
+        SET stock = stock - ? 
+        WHERE id = ? AND stock >= ?`,
+       [item.cantidad, item.id, item.cantidad]
+      );
+      // return { success: true, message: "Venta completada exitosamente" };
+    }
+    
+
+    // Confirmar transacción
+    await db.query('COMMIT');
+
+ //Guardar la venta en la base de datos
  user_to_save
    .save()
-   .then((usuarioGuardado) => {
+   .then((pedidoGuardado) => {
      return res.status(200).json({
        //Devolver resultado
        status: "success",
-       mensaje: "usuario registrado correctamente",
-       usuario: usuarioGuardado,
+       mensaje: "Pedido registrado correctamente",
+       message: "Stock actualizado correctamente",
+       pedido: pedidoGuardado,
      });
    })
    .catch((error) => {
      return res.status(400).json({
        //devolver error
        status: "error",
-       mensaje: "No se ha guardado el usuario: " + error.message,
+       mensaje: "No se ha guardado el pedido: " + error.message,
      });
    });
-
 };
 
 const getVentasPorFecha = async (req, res) => {
