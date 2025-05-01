@@ -18,7 +18,7 @@ const Venta_accesorios = sequelize.define('venta_accesorios', {
     type: DataTypes.STRING,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
-  comentarios: {
+  detalles: {
     type: DataTypes.TEXT,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
