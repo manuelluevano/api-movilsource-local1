@@ -42,10 +42,13 @@ app.set("port", config.app.port);
 const UserRutes = require("./routes/user")
 const AccesorioRutes = require("./routes/accesorios")
 const VentaAccesorioRutes = require("./routes/pedidoAccesorios")
+const ServicioRutes = require("./routes/service")
+
 
 app.use("/user", UserRutes);
 app.use("/accesorio", AccesorioRutes);
 app.use("/venta", VentaAccesorioRutes);
+app.use("/servicio", ServicioRutes);
 
 
 app.use(errors)
