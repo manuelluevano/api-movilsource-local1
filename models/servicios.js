@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./secuelize-config'); // Asegúrate de importar tu configuración de Sequelize
 
 
-const Servicio = sequelize.define('servicios_celulares', {
+const Servicios = sequelize.define('servicios_celulares', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -98,4 +98,4 @@ const Servicio = sequelize.define('servicios_celulares', {
   }
 });
 
-module.exports = Servicio;
+module.exports = Servicios;
