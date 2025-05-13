@@ -33,12 +33,15 @@ const addAccesorio = async (req, res) => {
     nombre: params.nombre,
     descripcion: params.descripcion,
     precio: params.precio,
-    precio_final: params.precio_final,
+    precio_original: params.precio_original,
     stock: params.stock,
     categoria: params.categoria,
     activo: params.activo,
     imagen: linkImg,
   });
+
+  console.log(newAccesorio);
+  
 
   //  Guardar el articulo en la base de datos
   newAccesorio

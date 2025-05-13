@@ -11,7 +11,7 @@ const Venta_accesorios = sequelize.define('venta_accesorios', {
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
   total: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.DECIMAL,
     allowNull: true, // esto es opcional ya que es el valor por defecto
   },
   metodo_pago: {
