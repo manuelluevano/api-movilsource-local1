@@ -66,42 +66,25 @@ const addService = async (req, res) => {
 };
 
 const listServices = async (req, res) => {
+
   //Consulta a DB
   try {
     // obtener todos los articulos
-    let services = await Servicios.find({})
-      .sort({
-        fecha: 1,
-      })
-      .populate("user");
-
-    if (!services.length > 0) {
+    const servicios = await Servicios.findAll();
+    console.log(servicios);
+    
+    if (!servicios.length > 0) {
       return res.status(404).json({
         status: "error",
-        mensaje: "No se han encontrado articulos",
+        mensaje: "No se han encontrado Servicios",
       });
     }
-
-    //OBTENER SERVICIOS REALIZADO Y NO REALIZADOS
-    let servicesPendient = await Servicios.find({ status: false })
-      .sort({
-        fecha: 1,
-      })
-      .populate("user");
-
-    let servicesFinished = await Servicios.find({ status: true })
-      .sort({
-        fecha: 1,
-      })
-      .populate("user");
 
     return res.status(200).send({
       status: "Success",
       // parametro: req.params.ultimos,
-      contador: services.length,
-      servicesPendient: servicesPendient.length,
-      servicesFinished: servicesFinished.length,
-      services,
+      contador: servicios.length,
+      servicios,
     });
   } catch (error) {
     return res.status(400).json({
