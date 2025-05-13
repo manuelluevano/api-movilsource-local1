@@ -1,4 +1,7 @@
 const { DataTypes } = require('sequelize');
+const sequelize = require('./secuelize-config'); // Asegúrate de importar tu configuración de Sequelize
+
+
 const Servicio = sequelize.define('servicios_celulares', {
   id: {
     type: DataTypes.INTEGER,

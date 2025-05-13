@@ -2,7 +2,7 @@
 // const Service = require("../models/service");
 // const bcrypt = require("bcrypt");
 
-const Servicios = require("../models/service");
+const Servicios = require("../models/servicios");
 // const { infoUserId } = require("../services/userService");
 
 //IMPORTAR services
