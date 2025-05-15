@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise'); // Usamos la versión con promesas
 
 // Configuración de la conexión
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'sql5.freesqldatabase.com	',
+  host: process.env.DB_HOST || 'sql5.freesqldatabase.com',
   user: process.env.DB_USER || 'sql5777999',
   password: process.env.DB_PASSWORD || 'x5DJWpgyfs',
   database: process.env.DB_NAME || 'sql5777999',
