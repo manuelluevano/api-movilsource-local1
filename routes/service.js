@@ -9,6 +9,10 @@ const check = require("../middlewares/auth");
 router.get("/prueba-servicio",  ServicioSchema.pruebaService);
 router.post("/servicio",check.auth , ServicioSchema.addService)
 router.get("/servicios",check.auth , ServicioSchema.listServices)
+// Actualizar estado de un servicio
+router.put('/:id/estado', check.auth, ServicioSchema.actualizarEstado);
+
+
 router.post("/servicio/complete/:id",check.auth , ServicioSchema.updateComplete)
 router.post("/servicio/status/:id",check.auth , ServicioSchema.updateStatus)
 router.get("/servicios/:busqueda", check.auth ,ServicioSchema.buscador);

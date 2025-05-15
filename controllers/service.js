@@ -1,13 +1,6 @@
 //IMPORTAR DEPENDENCIAS Y MODULOS
-// const Service = require("../models/service");
-// const bcrypt = require("bcrypt");
-
+const sequelize = require("../models/secuelize-config");
 const Servicios = require("../models/servicios");
-// const { infoUserId } = require("../services/userService");
-
-//IMPORTAR services
-// const jwt = require("../services/jwt");
-// const { validarRegistro } = require("../helper/validate");
 
 //Acciones de pruebas
 const pruebaService = (req, res) => {
@@ -69,23 +62,24 @@ const listServices = async (req, res) => {
 
   //Consulta a DB
   try {
+    console.log("PRESS");
+    
     // obtener todos los articulos
     const servicios = await Servicios.findAll();
     console.log(servicios);
     
-    if (!servicios.length > 0) {
-      return res.status(404).json({
-        status: "error",
-        mensaje: "No se han encontrado Servicios",
-      });
-    }
+     if (!servicios.length > 0) {
+       return res.status(404).json({
+         status: "error",
+         mensaje: "No se han encontrado Servicios",
+       });
+     }
 
-    return res.status(200).send({
-      status: "Success",
-      // parametro: req.params.ultimos,
-      contador: servicios.length,
-      servicios,
-    });
+     return res.status(200).send({
+       status: "Success",
+       contador: servicios.length,
+       servicios,
+     });
   } catch (error) {
     return res.status(400).json({
       status: "Error",
@@ -93,6 +87,82 @@ const listServices = async (req, res) => {
     });
   }
 };
+
+// CAMBIAR EL ESTADO DEL SERVICIO 
+const actualizarEstado = async (req, res) => {
+  let t;
+  
+  try {
+    t = await sequelize.transaction();
+
+    const { id } = req.params;
+    const { estado } = req.body;
+    const userId = req.user.id;
+
+    // Validación de estados
+    const estadosPermitidos = Servicios.rawAttributes.estado.values;
+    if (!estadosPermitidos.includes(estado)) {
+      await t.rollback();
+      return res.status(400).json({ 
+        success: false,
+        message: `Estado no válido. Valores permitidos: ${estadosPermitidos.join(', ')}`,
+        received: estado
+      });
+    }
+
+    // Actualizar el servicio
+    const [updatedRows] = await Servicios.update(
+      { 
+        estado,
+        fecha_actualizacion: sequelize.fn('NOW')
+      },
+      { 
+        where: { id },
+        transaction: t
+      }
+    );
+
+    if (updatedRows === 0) {
+      await t.rollback();
+      return res.status(404).json({
+        success: false,
+        message: 'Servicio no encontrado'
+      });
+    }
+
+    // Obtener el servicio actualizado por separado
+    const servicioActualizado = await Servicios.findOne({
+      where: { id },
+      transaction: t
+    });
+
+    await t.commit();
+
+    return res.json({
+      success: true,
+      message: 'Estado actualizado correctamente',
+      data: servicioActualizado
+    });
+
+  } catch (error) {
+    if (t) await t.rollback();
+    
+    console.error('Detalles del error:', error);
+    
+    return res.status(500).json({
+      success: false,
+      message: 'Error en el servidor al actualizar el estado',
+      ...(process.env.NODE_ENV === 'development' && {
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: error.stack
+        }
+      })
+    });
+  }
+};
+
 
 const updateStatus = async (req, res) => {
   //RECIBIR EL PARAMETRO DEL ID DEL USUARIO POR URL
@@ -147,6 +217,8 @@ const updateStatus = async (req, res) => {
     });
   }
 };
+
+
 const updateComplete = async (req, res) => {
   //RECIBIR EL PARAMETRO DEL ID DEL USUARIO POR URL
   const id = req.params.id;
@@ -285,6 +357,7 @@ module.exports = {
   pruebaService,
   addService,
   listServices,
+  actualizarEstado,
   updateComplete,
   updateStatus,
   buscador,

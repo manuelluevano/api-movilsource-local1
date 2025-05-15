@@ -12,7 +12,6 @@ const Servicios = sequelize.define('servicios_celulares', {
   folio: {
     type: DataTypes.INTEGER,
     unique: true,
-    allowNull: true // Se actualizará con el trigger
   },
   nombre: {
     type: DataTypes.STRING(100),
@@ -55,7 +54,7 @@ const Servicios = sequelize.define('servicios_celulares', {
     defaultValue: 0.00,
     allowNull: true
   },
-  diferencia: {
+  saldo_pendiente: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: true
   },
@@ -76,26 +75,18 @@ const Servicios = sequelize.define('servicios_celulares', {
     type: DataTypes.DATEONLY,
     allowNull: true
   },
+  // En tu modelo Servicios (probablemente en models/servicios.js)
   estado: {
-    type: DataTypes.ENUM('recibido', 'en_reparacion', 'reparado', 'entregado', 'cancelado'),
-    defaultValue: 'recibido',
-    allowNull: false
-  }
-}, {
-  tableName: 'servicios_celulares',
-  timestamps: false, // Desactivamos los timestamps automáticos ya que tenemos fecha_registro
-  hooks: {
-    beforeCreate: (servicio, options) => {
-      // Calculamos la diferencia automáticamente antes de crear
-      servicio.diferencia = servicio.precio_servicio - (servicio.abono_servicio || 0);
-    },
-    beforeUpdate: (servicio, options) => {
-      // Recalculamos la diferencia al actualizar
-      if (servicio.changed('precio_servicio') || servicio.changed('abono_servicio')) {
-        servicio.diferencia = servicio.precio_servicio - (servicio.abono_servicio || 0);
+      type: DataTypes.ENUM('recibido', 'en_proceso', 'terminado', 'entregado', 'cancelado'),
+      allowNull: false,
+      defaultValue: 'recibido',
+      validate: {
+        isIn: [['recibido', 'en_proceso', 'terminado', 'entregado', 'cancelado']]
       }
-    }
-  }
+    },
+}, {
+  tableName: 'servicios_celulares', // equivalente al tercer parámetro en Mongoose
+  timestamps: false // opcional: crea createdAt y updatedAt automáticamente
 });
 
 module.exports = Servicios;
