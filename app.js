@@ -11,16 +11,26 @@ const config = require("./db/config");
 //CREAR SERVIDOR DE NODE
 const app = express();
 
-// Configuración básica de CORS (permite todos los orígenes)
-app.use(cors());
+// Configuración CORS detallada
+const corsOptions = {
+  origin: [
+    'http://localhost:5173', // Desarrollo local
+    'https://manuelluevano.github.io', // Producción
+    'https://tu-frontend.com' // Otros dominios permitidos
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 200 // Para navegadores antiguos
+};
 
-// Configuración más segura (recomendada para desarrollo)
-// app.use(cors({
-//     origin: 'http://localhost:5173', // Solo permite tu frontend
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-//   }));
+// Middlewares importantes
+app.use(cors(corsOptions));
+app.use(express.json()); // Para parsear JSON
+app.use(express.urlencoded({ extended: true }));
 
+// Manejar preflight requests
+app.options('*', cors(corsOptions));
 
   
 //MIDDLEWARE
