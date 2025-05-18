@@ -11,24 +11,18 @@ const config = require("./db/config");
 //CREAR SERVIDOR DE NODE
 const app = express();
 
-// Configure CORS options
-const corsOptions = {
-    origin: [
-        'https://manuelluevano.github.io', // Your GitHub Pages domain
-        'http://localhost:5173',           // For local development
-        'http://localhost:4000'            // Another common local port
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-};
+// Configuración básica de CORS (permite todos los orígenes)
+app.use(cors());
 
-// Apply CORS middleware
-app.use(cors(corsOptions));
+// Configuración más segura (recomendada para desarrollo)
+// app.use(cors({
+//     origin: 'http://localhost:5173', // Solo permite tu frontend
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+//   }));
 
-// Handle preflight requests
-app.options('*', cors(corsOptions));
 
+  
 //MIDDLEWARE
 app.use(morgan('dev'));
 
