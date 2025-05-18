@@ -10,53 +10,90 @@ const pruebaService = (req, res) => {
 };
 
 const addService = async (req, res) => {
-  let folio
-  //RECOGER PARAMETROS
-  let params = req.body;
-  console.log(req.body);
+  try {
+    // Validar campos requeridos
+    const requiredFields = [
+      'nombre', 'apellido', 'numero_contacto', 
+      'servicio', 'modelo', 'marca', 'precio_servicio'
+    ];
+    
+    const missingFields = requiredFields.filter(field => !req.body[field]);
+    
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        status: "error",
+        message: `Faltan los siguientes campos: ${missingFields.join(', ')}`
+      });
+    }
 
-  //REVISAR SI INGRESAMOS LOS PARAMETROS
-  if (
-    !params.name ||
-    !params.apellido ||
-    !params.telefono ||
-    !params.servicio ||
-    !params.modelo ||
-    !params.marca ||
-    !params.precio 
+    // Procesar valores numéricos
+    const precio = parseFloat(req.body.precio_servicio) || 0;
+    const abono = parseFloat(req.body.abono_servicio) || 0;
+    const saldo = precio - abono;
 
-  ) {
-    return res.status(400).json({
-      //devolver error
-      status: "Error",
-      mensaje: "Faltan datos por enviar",
+    // Crear objeto de servicio con Sequelize
+    const newService = await Servicios.create({
+      folio: req.body.folio || await generarFolioAutomatico(),
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      numero_contacto: req.body.numero_contacto,
+      servicio: req.body.servicio,
+      modelo: req.body.modelo,
+      marca: req.body.marca,
+      imei: req.body.imei || null,
+      numero_serie: req.body.numero_serie || null,
+      precio_servicio: precio,
+      abono_servicio: abono,
+      saldo_pendiente: saldo,
+      gaveta: req.body.gaveta || null,
+      observaciones: req.body.observaciones || null,
+      fecha_registro: req.body.fecha_registro || new Date(),
+      fecha_entrega: req.body.fecha_entrega || null,
+      estado: req.body.estado || 'recibido',
+      userId: req.user.id
+    });
+
+    res.status(201).json({
+      status: "success",
+      message: "Servicio registrado correctamente",
+      service: newService,
+      folio: newService.folio
+    });
+
+  } catch (error) {
+    console.error("Error al guardar servicio:", error);
+    
+    // Manejo específico de errores de validación de Sequelize
+    if (error.name === 'SequelizeValidationError') {
+      const errors = error.errors.map(err => ({
+        field: err.path,
+        message: err.message
+      }));
+      
+      return res.status(400).json({
+        status: "error",
+        message: "Error de validación",
+        errors
+      });
+    }
+    
+    // Manejo de errores de duplicados (folio único)
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({
+        status: "error",
+        message: "El folio ya existe",
+        field: error.errors[0].path
+      });
+    }
+    
+    res.status(500).json({
+      status: "error",
+      message: "Error interno del servidor al guardar el servicio",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
-
-  //CREAR OBJETO DE USUARIO
-  let service_to_save = new Servicios(params);
-  service_to_save.user = req.user.id;
-
-
-  // Guardar el articulo en la base de datos
-  service_to_save
-    .save()
-    .then((servicioGuardado) => {
-      return res.status(200).json({
-        //DEVOLVER DATOS DEL SERVICIO
-        status: "success",
-        mensaje: "Servicio registrado correctamente",
-        servicio: servicioGuardado,
-      });
-    })
-    .catch((error) => {
-      return res.status(400).json({
-        //devolver error
-        status: "error",
-        mensaje: "No se ha guardado el servicio: " + error.message,
-      });
-    });
 };
+
 
 const listServices = async (req, res) => {
 

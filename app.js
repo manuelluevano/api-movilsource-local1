@@ -48,7 +48,7 @@ const ServicioRutes = require("./routes/service")
 app.use("/user", UserRutes);
 app.use("/accesorio", AccesorioRutes);
 app.use("/venta", VentaAccesorioRutes);
-app.use("/servicio", ServicioRutes);
+app.use("/service", ServicioRutes);
 
 
 app.use(errors)
