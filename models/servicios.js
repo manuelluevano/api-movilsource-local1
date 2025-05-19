@@ -77,11 +77,11 @@ const Servicios = sequelize.define('servicios_celulares', {
   },
   // En tu modelo Servicios (probablemente en models/servicios.js)
   estado: {
-      type: DataTypes.ENUM('recibido', 'en_proceso', 'terminado', 'entregado', 'cancelado'),
+      type: DataTypes.ENUM('recibido', 'proceso', 'terminado', 'entregado', 'cancelado'),
       allowNull: false,
       defaultValue: 'recibido',
       validate: {
-        isIn: [['recibido', 'en_proceso', 'terminado', 'entregado', 'cancelado']]
+        isIn: [['recibido', 'proceso', 'terminado', 'entregado', 'cancelado']]
       }
     },
 }, {
