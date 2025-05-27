@@ -14,7 +14,7 @@ const addService = async (req, res) => {
     // Validar campos requeridos
     const requiredFields = [
       'nombre', 'apellido', 'numero_contacto', 
-      'servicio', 'modelo', 'marca', 'precio_servicio'
+      'servicio', 'modelo', 'marca'
     ];
     
     const missingFields = requiredFields.filter(field => !req.body[field]);
