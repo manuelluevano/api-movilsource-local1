@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./secuelize-config'); // Asegúrate de importar tu configuración de Sequelize
 
-
 const Servicios = sequelize.define('servicios_celulares', {
   id: {
     type: DataTypes.INTEGER,
@@ -75,18 +74,35 @@ const Servicios = sequelize.define('servicios_celulares', {
     type: DataTypes.DATEONLY,
     allowNull: true
   },
-  // En tu modelo Servicios (probablemente en models/servicios.js)
   estado: {
-      type: DataTypes.ENUM('recibido', 'proceso', 'terminado', 'entregado', 'cancelado'),
-      allowNull: false,
-      defaultValue: 'recibido',
-      validate: {
-        isIn: [['recibido', 'proceso', 'terminado', 'entregado', 'cancelado']]
-      }
-    },
+    type: DataTypes.ENUM('recibido', 'proceso', 'terminado', 'entregado', 'cancelado'),
+    allowNull: false,
+    defaultValue: 'recibido',
+    validate: {
+      isIn: [['recibido', 'proceso', 'terminado', 'entregado', 'cancelado']]
+    }
+  },
+  // Nuevos campos para funda y chip
+  tiene_funda: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  tiene_chip: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  compania_chip: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+    validate: {
+      isIn: [['Telcel', 'Movistar', 'AT&T México', 'Unefón', 'Virgin Mobile', 'Bait', 'Oui', 'Weex', null]]
+    }
+  }
 }, {
-  tableName: 'servicios_celulares', // equivalente al tercer parámetro en Mongoose
-  timestamps: false // opcional: crea createdAt y updatedAt automáticamente
+  tableName: 'servicios_celulares',
+  timestamps: false
 });
 
 module.exports = Servicios;

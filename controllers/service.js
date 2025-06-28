@@ -26,10 +26,22 @@ const addService = async (req, res) => {
       });
     }
 
+    // Validar que si tiene chip, debe especificar compañía
+    if (req.body.tiene_chip && !req.body.compania_chip) {
+      return res.status(400).json({
+        status: "error",
+        message: "Debe especificar la compañía del chip si el dispositivo incluye chip"
+      });
+    }
+
     // Procesar valores numéricos
     const precio = parseFloat(req.body.precio_servicio) || 0;
     const abono = parseFloat(req.body.abono_servicio) || 0;
     const saldo = precio - abono;
+
+    // Procesar campos booleanos (funda y chip)
+    const tieneFunda = req.body.tiene_funda === true || req.body.tiene_funda === 'true';
+    const tieneChip = req.body.tiene_chip === true || req.body.tiene_chip === 'true';
 
     // Crear objeto de servicio con Sequelize
     const newService = await Servicios.create({
@@ -50,6 +62,9 @@ const addService = async (req, res) => {
       fecha_registro: req.body.fecha_registro || new Date(),
       fecha_entrega: req.body.fecha_entrega || null,
       estado: req.body.estado || 'recibido',
+      tiene_funda: tieneFunda,
+      tiene_chip: tieneChip,
+      compania_chip: tieneChip ? req.body.compania_chip : null,
       userId: req.user.id
     });
 
@@ -93,7 +108,6 @@ const addService = async (req, res) => {
     });
   }
 };
-
 
 const listServices = async (req, res) => {
 
