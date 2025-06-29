@@ -53,12 +53,14 @@ const UserRutes = require("./routes/user")
 const AccesorioRutes = require("./routes/accesorios")
 const VentaAccesorioRutes = require("./routes/pedidoAccesorios")
 const ServicioRutes = require("./routes/service")
+const PendientesRutes = require("./routes/pendientes")
 
 
 app.use("/user", UserRutes);
 app.use("/accesorio", AccesorioRutes);
 app.use("/venta", VentaAccesorioRutes);
 app.use("/service", ServicioRutes);
+app.use("/pendiente", PendientesRutes);
 
 
 app.use(errors)

@@ -1,23 +1,52 @@
-const { Schema, model } = require("mongoose");
+const { DataTypes } = require('sequelize');
+const sequelize = require('./secuelize-config'); // Asegúrate de importar tu configuración de Sequelize
 
-const PendientesSchema = Schema({
+const Pendientes = sequelize.define('pendientes', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false
+  },
   pendiente: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    comment: "Descripción breve del pendiente (ej. 'Cambio de batería')"
   },
   detalle: {
-    type: String,
+    type: DataTypes.TEXT,
+    allowNull: true,
+    comment: "Información adicional del servicio/reparación"
+  },
+  fecha_ingreso: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+    comment: "Fecha y hora de registro"
+  },
+  fecha_entrega: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+    comment: "Fecha estimada o real de entrega"
   },
   telefono: {
-    type: Number,
+    type: DataTypes.STRING(20),
+    allowNull: true,
+    comment: "Teléfono del cliente para contacto"
   },
-  dia: {
-    type: Date,
-  },
-  status:{
-    type: Boolean,
-    default: false,
+  estado: {
+    type: DataTypes.ENUM('pendiente', 'completado', 'cancelado'),
+    defaultValue: 'pendiente',
+    allowNull: false,
+    validate: {
+      isIn: [['pendiente', 'completado', 'cancelado']]
+    },
+    comment: "Estado del trabajo"
   }
+}, {
+  tableName: 'pendientes',
+  timestamps: false, // Desactiva los campos createdAt y updatedAt
+  comment: "Tabla para gestionar pendientes de reparación de celulares"
 });
 
-module.exports = model("Pendientes", PendientesSchema, "pendientes");
+module.exports = Pendientes;
