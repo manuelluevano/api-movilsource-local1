@@ -26,7 +26,7 @@ const localDB = new Sequelize({
 });
 
 // Elige cuál usar cambiando este valor
-const USE_LOCAL_DB = true; // Cambia a false para usar la remota
+const USE_LOCAL_DB = false; // Cambia a false para usar la remota
 const sequelize = USE_LOCAL_DB ? localDB : remoteDB;
 
 // Verificar conexión
