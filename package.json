@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon node index.js"
   },
   "author": "Manuel Luevano",
   "license": "ISC",
@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "dotenv": "^16.4.7",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.10"
   }
 }

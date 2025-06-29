@@ -27,7 +27,7 @@ const addService = async (req, res) => {
     }
 
     // Validar que si tiene chip, debe especificar compañía
-    if (req.body.tiene_chip && !req.body.compania_chip) {
+    if (req.body.tiene_chip === 'si' && !req.body.compania_chip) {
       return res.status(400).json({
         status: "error",
         message: "Debe especificar la compañía del chip si el dispositivo incluye chip"
@@ -40,8 +40,9 @@ const addService = async (req, res) => {
     const saldo = precio - abono;
 
     // Procesar campos booleanos (funda y chip)
-    const tieneFunda = req.body.tiene_funda === true || req.body.tiene_funda === 'true';
-    const tieneChip = req.body.tiene_chip === true || req.body.tiene_chip === 'true';
+    const tieneFunda = req.body.tiene_funda === 'si';
+
+    const tieneChip = req.body.tiene_chip === 'si'
 
     // Crear objeto de servicio con Sequelize
     const newService = await Servicios.create({
@@ -113,11 +114,9 @@ const listServices = async (req, res) => {
 
   //Consulta a DB
   try {
-    console.log("PRESS");
-    
     // obtener todos los articulos
     const servicios = await Servicios.findAll();
-    console.log(servicios);
+    // console.log(servicios);
     
      if (!servicios.length > 0) {
        return res.status(404).json({
