@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon node index.js"
+    "start": "node index.js",
+    "dev": "nodemon node index.js"
   },
   "author": "Manuel Luevano",
   "license": "ISC",
